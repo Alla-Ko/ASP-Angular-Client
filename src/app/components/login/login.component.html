@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Авторизація</h2>
+  <form (ngSubmit)="login()">
+    <div class="mb-3">
+      <label for="username" class="form-label">Логін:</label>
+      <input id="username" type="text" class="form-control" [(ngModel)]="username" name="username" required />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Пароль:</label>
+      <input id="password" type="password" class="form-control" [(ngModel)]="password" name="password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Увійти</button>
+  </form>
+  <p>
+    Немає облікового запису? <a routerLink="/register">Зареєструватися</a>
+  </p>
+</div>

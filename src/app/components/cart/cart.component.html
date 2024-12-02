@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <!-- Якщо кошик порожній -->
+  <div *ngIf="(cart$ | async)?.length === 0" class="text-center">
+		<h3 class="text-danger">Ваш кошик порожній</h3>
+		<button class="btn btn-outline-primary" (click)="goHome()">
+			Повернутися до покупок
+		</button>
+	</div>
+	
+
+  <!-- Якщо кошик не порожній -->
+  <div  >
+    <h2 class="mb-4">Ваш кошик</h2>
+
+    <!-- Список товарів у кошику -->
+    <div *ngFor="let item of cart$ | async" class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-10">
+            <h5 class="card-title">{{ item.product.name }}</h5>
+            <p class="card-text">Ціна: {{ item.product.price }} грн</p>
+            <p class="card-text">Кількість: {{ item.quantity }}</p>
+            <p class="card-text">
+              Загальна вартість: {{ item.product.price * item.quantity }} грн
+            </p>
+          </div>
+					
+          <div class="col-md-2">
+            <input
+              type="number"
+              [(ngModel)]="item.quantity"
+              (change)="updateQuantity(item, item.quantity)"
+              class="form-control"
+              min="1"
+              step="1"
+              [attr.max]="10"
+              aria-label="Кількість товару"
+							onkeypress="return false;"
+            />
+          </div>
+        </div>
+        <button class="btn btn-danger mt-3" (click)="removeFromCart(item)">
+          Видалити
+        </button>
+      </div>
+    </div>
+
+    <!-- Загальна вартість та кнопки -->
+    <div class="text-end">
+      <h3>Загальна вартість: {{ getTotalPrice() | number:'1.2-2' }} грн</h3>
+      <button class="btn btn-success me-2" (click)="goToCheckout()">
+        Оформити замовлення
+      </button>
+      <button class="btn btn-outline-primary" (click)="goHome()">
+        Повернутися до покупок
+      </button>
+    </div>
+  </div>
+</div>
